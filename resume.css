@@ -263,7 +263,7 @@ section>h1 {
  *		TABLET
  ****************/
 
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 756px) {
 
     html {
         font-size: 1vw;

@@ -1,259 +1,265 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Lorenzo Fiamingo</title>
-    <script src="https://kit.fontawesome.com/5b884fb8b4.js" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <link rel="stylesheet" href="resume.css" />
-    <script>
-        $(document).ready(function(){
-            animateCircle('.circle-1');
-            animateCircle('.circle-2');
-            animateCircle('.circle-3');
-            animateCircle('.circle-4');
-            animateSquare('.square-1');
-            animateSquare('.square-2');
-            animateSquare('.square-3');
-            animateTriangle('.triangle-1');
-            animateTriangle('.triangle-2');
-            animateTriangle('.triangle-3');
-            animateIcon('.icon-1');
-            animateIcon('.icon-2');
-            animateIcon('.icon-3');
-            animateIcon('.icon-4');
-            animateIcon('.icon-5');
-            animateIcon('.icon-6');
-            animateIcon('.icon-7');
-            animateIcon('.icon-8');
-            animateIcon('.icon-9');
-            animateIcon('.icon-10');
-            animateIcon('.icon-11');
-            animateIcon('.icon-12');
-        });
-
-        function makeNewPosition(){
-
-            //viewport dimensions
-            var h = $(window).height();
-            var w = $(window).width();
-
-            var nt = 0;
-            var nl = 0;
-
-            let random = Math.random();
-
-            if (random < 0.25) {
-                nl = -500;
-                nt = Math.floor(Math.random() * h);
-            } else if (random < 0.5) {
-                nl = w + 500;
-                nt = Math.floor(Math.random() * h);
-            } else if (random < 0.75) {
-                nl = Math.floor(Math.random() * w);
-                nt = -500;
-            } else {
-                nl = Math.floor(Math.random() * w);
-                nt = h + 500;
-            }
-            return [nt,nl];
-        }
-
-        function animateCircle(myclass){
-            var randomColor = '#'+ ('000000' + Math.floor(Math.random()*16777215).toString(16)).slice(-6);
-            var newq = makeNewPosition();
-            $(myclass).css({
-                'background-color' : randomColor,
-                'top': newq[0],
-                'left': newq[1],
-            });
-            var newq = makeNewPosition();
-            $(myclass).animate({
-                    'top': newq[0],
-                    'left': newq[1],
-                },
-                Math.random() * 8000 + 12000,
-                "linear",
-                function(){
-                    animateCircle(myclass);
-                });
-        };
-        function animateSquare(myclass){
-            var randomColor = '#'+ ('000000' + Math.floor(Math.random()*16777215).toString(16)).slice(-6);
-            var newq = makeNewPosition();
-            $(myclass).css({
-                'background-color' : randomColor,
-                'top': newq[0],
-                'left': newq[1],
-                'transform': 'rotate(' + (Math.random()*360) + 'deg)'
-            });
-            var newq = makeNewPosition();
-            $(myclass).animate({
-                    'top': newq[0],
-                    'left': newq[1],
-                },
-                Math.random() * 8000 + 12000,
-                "linear",
-                function(){
-                    animateSquare(myclass);
-                });
-        };
-
-        function animateTriangle(myclass){
-            var randomColor = '#'+ ('000000' + Math.floor(Math.random()*16777215).toString(16)).slice(-6);
-            var newq = makeNewPosition();
-            $(myclass).css({
-                'border-left-color': randomColor,
-                'top': newq[0],
-                'left': newq[1],
-                'transform': 'rotate(' + (Math.random()*360) + 'deg)'
-            });
-            var newq = makeNewPosition();
-            $(myclass).animate({
-                    'top': newq[0],
-                    'left': newq[1],
-                },
-                Math.random() * 8000 + 12000,
-                "linear",
-                function(){
-                    animateTriangle(myclass);
-                });
-        };
-        function animateIcon(myclass){
-            var randomColor = '#'+ ('000000' + Math.floor(Math.random()*16777215).toString(16)).slice(-6);
-            var newq = makeNewPosition();
-            $(myclass).css({
-                'color' : randomColor,
-                'top': newq[0],
-                'left': newq[1],
-                'transform': 'rotate(' + (Math.random()*360) + 'deg)'
-            });
-            var newq = makeNewPosition();
-            $(myclass).animate({
-                    'top': newq[0],
-                    'left': newq[1],
-                },
-                Math.random() * 8000 + 12000,
-                "linear",
-                function(){
-                    animateIcon(myclass);
-                });
-        };
-    </script>
-    <script>
-        var TxtType = function(el, toRotate, period) {
-            this.toRotate = toRotate;
-            this.el = el;
-            this.loopNum = 0;
-            this.period = parseInt(period, 10) || 2000;
-            this.txt = '';
-            this.tick();
-            this.isDeleting = false;
-        };
-
-        TxtType.prototype.tick = function() {
-            var i = this.loopNum % this.toRotate.length;
-            var fullTxt = this.toRotate[i];
-
-            if (this.isDeleting) {
-                this.txt = fullTxt.substring(0, this.txt.length - 1);
-            } else {
-                this.txt = fullTxt.substring(0, this.txt.length + 1);
-            }
-
-            this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
-
-            var that = this;
-            var delta = 200 - Math.random() * 100;
-
-            if (this.isDeleting) { delta /= 2; }
-
-            if (!this.isDeleting && this.txt === fullTxt) {
-                delta = this.period;
-                this.isDeleting = true;
-            } else if (this.isDeleting && this.txt === '') {
-                this.isDeleting = false;
-                this.loopNum++;
-                delta = 500;
-            }
-
-            setTimeout(function() {
-                that.tick();
-            }, delta);
-        };
-
-        window.onload = function() {
-            var elements = document.getElementsByClassName('typewrite');
-            for (var i=0; i<elements.length; i++) {
-                var toRotate = elements[i].getAttribute('data-type');
-                var period = elements[i].getAttribute('data-period');
-                if (toRotate) {
-                    new TxtType(elements[i], JSON.parse(toRotate), period);
+    <head>
+        <meta charset="UTF-8">
+            <title>Lorenzo Fiamingo</title>
+            <script src="https://kit.fontawesome.com/5b884fb8b4.js" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+            <link rel="stylesheet" href="resume.css" />
+            <script>
+                $(document).ready(function(){
+                                  animateCircle('.circle-1');
+                                  animateCircle('.circle-2');
+                                  animateCircle('.circle-3');
+                                  animateCircle('.circle-4');
+                                  animateSquare('.square-1');
+                                  animateSquare('.square-2');
+                                  animateSquare('.square-3');
+                                  animateTriangle('.triangle-1');
+                                  animateTriangle('.triangle-2');
+                                  animateTriangle('.triangle-3');
+                                  animateIcon('.icon-1');
+                                  animateIcon('.icon-2');
+                                  animateIcon('.icon-3');
+                                  animateIcon('.icon-4');
+                                  animateIcon('.icon-5');
+                                  animateIcon('.icon-6');
+                                  animateIcon('.icon-7');
+                                  animateIcon('.icon-8');
+                                  animateIcon('.icon-9');
+                                  animateIcon('.icon-10');
+                                  animateIcon('.icon-11');
+                                  animateIcon('.icon-12');
+                                  });
+                                  
+                                  function makeNewPosition(){
+                                      
+                                      //viewport dimensions
+                                      var h = $(window).height();
+                                      var w = $(window).width();
+                                      
+                                      var nt = 0;
+                                      var nl = 0;
+                                      
+                                      let random = Math.random();
+                                      
+                                      if (random < 0.25) {
+                                          nl = -500;
+                                          nt = Math.floor(Math.random() * h);
+                                      } else if (random < 0.5) {
+                                          nl = w + 500;
+                                          nt = Math.floor(Math.random() * h);
+                                      } else if (random < 0.75) {
+                                          nl = Math.floor(Math.random() * w);
+                                          nt = -500;
+                                      } else {
+                                          nl = Math.floor(Math.random() * w);
+                                          nt = h + 500;
+                                      }
+                                      return [nt,nl];
+                                  }
+            
+            function animateCircle(myclass){
+                var randomColor = '#'+ ('000000' + Math.floor(Math.random()*16777215).toString(16)).slice(-6);
+                var newq = makeNewPosition();
+                $(myclass).css({
+                               'background-color' : randomColor,
+                               'top': newq[0],
+                               'left': newq[1],
+                               });
+                               var newq = makeNewPosition();
+                               $(myclass).animate({
+                                                  'top': newq[0],
+                                                  'left': newq[1],
+                                                  },
+                                                  Math.random() * 8000 + 12000,
+                                                  "linear",
+                                                  function(){
+                                                  animateCircle(myclass);
+                                                  });
+            };
+            function animateSquare(myclass){
+                var randomColor = '#'+ ('000000' + Math.floor(Math.random()*16777215).toString(16)).slice(-6);
+                var newq = makeNewPosition();
+                $(myclass).css({
+                               'background-color' : randomColor,
+                               'top': newq[0],
+                               'left': newq[1],
+                               'transform': 'rotate(' + (Math.random()*360) + 'deg)'
+                               });
+                               var newq = makeNewPosition();
+                               $(myclass).animate({
+                                                  'top': newq[0],
+                                                  'left': newq[1],
+                                                  },
+                                                  Math.random() * 8000 + 12000,
+                                                  "linear",
+                                                  function(){
+                                                  animateSquare(myclass);
+                                                  });
+            };
+            
+            function animateTriangle(myclass){
+                var randomColor = '#'+ ('000000' + Math.floor(Math.random()*16777215).toString(16)).slice(-6);
+                var newq = makeNewPosition();
+                $(myclass).css({
+                               'border-left-color': randomColor,
+                               'top': newq[0],
+                               'left': newq[1],
+                               'transform': 'rotate(' + (Math.random()*360) + 'deg)'
+                               });
+                               var newq = makeNewPosition();
+                               $(myclass).animate({
+                                                  'top': newq[0],
+                                                  'left': newq[1],
+                                                  },
+                                                  Math.random() * 8000 + 12000,
+                                                  "linear",
+                                                  function(){
+                                                  animateTriangle(myclass);
+                                                  });
+            };
+            function animateIcon(myclass){
+                var randomColor = '#'+ ('000000' + Math.floor(Math.random()*16777215).toString(16)).slice(-6);
+                var newq = makeNewPosition();
+                $(myclass).css({
+                               'color' : randomColor,
+                               'top': newq[0],
+                               'left': newq[1],
+                               'transform': 'rotate(' + (Math.random()*360) + 'deg)'
+                               });
+                               var newq = makeNewPosition();
+                               $(myclass).animate({
+                                                  'top': newq[0],
+                                                  'left': newq[1],
+                                                  },
+                                                  Math.random() * 8000 + 12000,
+                                                  "linear",
+                                                  function(){
+                                                  animateIcon(myclass);
+                                                  });
+            };
+            </script>
+            <script>
+                var TxtType = function(el, toRotate, period) {
+                    this.toRotate = toRotate;
+                    this.el = el;
+                    this.loopNum = 0;
+                    this.period = parseInt(period, 10) || 2000;
+                    this.txt = '';
+                    this.tick();
+                    this.isDeleting = false;
+                };
+            
+            TxtType.prototype.tick = function() {
+                var i = this.loopNum % this.toRotate.length;
+                var fullTxt = this.toRotate[i];
+                
+                if (this.isDeleting) {
+                    this.txt = fullTxt.substring(0, this.txt.length - 1);
+                } else {
+                    this.txt = fullTxt.substring(0, this.txt.length + 1);
                 }
-            }
-            // INJECT CSS
-            var css = document.createElement("style");
-            css.type = "text/css";
-            css.innerHTML = ".typewrite > .wrap { border-right: 0.08em solid #fff}";
-            document.body.appendChild(css);
-        };
-    </script>
-    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-</head>
-<body>
-    <section id="poster">
+                
+                this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
+                
+                var that = this;
+                var delta = 200 - Math.random() * 100;
+                
+                if (this.isDeleting) { delta /= 2; }
+                    
+                    if (!this.isDeleting && this.txt === fullTxt) {
+                        delta = this.period;
+                        this.isDeleting = true;
+                    } else if (this.isDeleting && this.txt === '') {
+                        this.isDeleting = false;
+                        this.loopNum++;
+                        delta = 500;
+                    }
+                    
+                    setTimeout(function() {
+                               that.tick();
+                               }, delta);
+                };
+                
+                window.onload = function() {
+                    var elements = document.getElementsByClassName('typewrite');
+                    for (var i=0; i<elements.length; i++) {
+                        var toRotate = elements[i].getAttribute('data-type');
+                        var period = elements[i].getAttribute('data-period');
+                        if (toRotate) {
+                            new TxtType(elements[i], JSON.parse(toRotate), period);
+                        }
+                    }
+                    // INJECT CSS
+                    var css = document.createElement("style");
+                    css.type = "text/css";
+                    css.innerHTML = ".typewrite > .wrap { border-right: 0.08em solid #fff}";
+                    document.body.appendChild(css);
+                };
+            </script>
+            <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    </head>
+    <body>
+        <section id="poster">
             <h1 class="typewrite" data-period="2000" data-type='[ "Hi, I&#39;m Lorenzo.", "I Love Coding.", "Particularly web and iOS.", "I am studying engineering at polimi.", "If you want to know more about me scroll down this page.", "I’m a young man from Calabria who lives in Milan and aims to succeed in engineering.", " I started programming in high school, and I really love it.", "At university, I learned C on K&R, and I really get into it... so I started studying from myself and using different programming languages."]'>
                 <span class="wrap"></span>
             </h1>
-    </section>
-
+        </section>
+        
         <section id="contact">
             <div class="card">
-            <h4 class="mail">
-                <i class="far fa-envelope"></i>
-                <a href="mailto:l99fiamingo@gmail.com">l99fiamingo@gmail.com</a>
-            </h4>
-                </div>
-                <div class="card">
-            <h4 class="whatsapp">
-                <i class="fab fa-whatsapp social"></i>
-                <a href="tel:+39 329 8015551">+39 329 8015551</a>
-            </h4>
-                </div>
-            <div class="card">
-            <h4 class="github">
-                <i class="fab fa-github social"></i>
-                <a target="_blank" href="https://github.com/lorenzofiamingo">GitHub</a>
-            </h4>
+                <h4 class="mail">
+                    <i class="far fa-envelope"></i>
+                    <a href="mailto:l99fiamingo@gmail.com">l99fiamingo@gmail.com</a>
+                </h4>
             </div>
             <div class="card">
-            <h4 class="stack-overflow">
-                <i class="fab fa-stack-overflow social"></i>
-                <a target="_blank" href="https://stackoverflow.com/users/10700672/lorenzo-fiamingo">Stack Overflow</a>
-            </h4>
+                <h4 class="whatsapp">
+                    <i class="fab fa-whatsapp social"></i>
+                    <a href="tel:+39 329 8015551">+39 329 8015551</a>
+                </h4>
             </div>
             <div class="card">
-            <h4 class="linkedin">
-                <i class="fab fa-linkedin-in social"></i>
-                <a target="_blank" href="https://www.linkedin.com/in/lorenzofiamingo/">LinkedIn</a>
-            </h4>
+                <h4 class="github">
+                    <i class="fab fa-github social"></i>
+                    <a target="_blank" href="https://github.com/lorenzofiamingo">GitHub</a>
+                </h4>
             </div>
             <div class="card">
-            <h4 class="facebook">
-                <i class="fab fa-facebook-f social"></i>
-                <a target="_blank" href="https://www.facebook.com/lorenzo.fiamingo">Facebook</a>
-            </h4>
+                <h4 class="stack-overflow">
+                    <i class="fab fa-stack-overflow social"></i>
+                    <a target="_blank" href="https://stackoverflow.com/users/10700672/lorenzo-fiamingo">Stack Overflow</a>
+                </h4>
             </div>
             <div class="card">
-            <h4 class="instagram">
-                <i class="fab fa-instagram social"></i>
-                <a target="_blank" href="https://www.instagram.com/lollofiamingo/">Instagram</a>
-            </h4>
-                </div>
+                <h4 class="linkedin">
+                    <i class="fab fa-linkedin-in social"></i>
+                    <a target="_blank" href="https://www.linkedin.com/in/lorenzofiamingo/">LinkedIn</a>
+                </h4>
+            </div>
+            <div class="card">
+                <h4 class="facebook">
+                    <i class="fab fa-facebook-f social"></i>
+                    <a target="_blank" href="https://www.facebook.com/lorenzo.fiamingo">Facebook</a>
+                </h4>
+            </div>
+            <div class="card">
+                <h4 class="instagram">
+                    <i class="fab fa-instagram social"></i>
+                    <a target="_blank" href="https://www.instagram.com/lollofiamingo/">Instagram</a>
+                </h4>
+            </div>
+            <div class="card">
+                <h4 class="jsonresume">
+                    <i class="fab fa-js-square social"></i>
+                    <a target="_blank" href="https://registry.jsonresume.org/lorenzofiamingo">JSONResume</a>
+                </h4>
+            </div>
         </section>
-
-    <section class="skills">
-        <h1>Skills</h1>
+        
+        <section class="skills">
+            <h1>Skills</h1>
             <div class="card">
                 <h3>Web Development</h3>
                 <ul>
@@ -265,7 +271,7 @@
                     <li>JQuery</li>
                     <li>Pyhton</li>
                     <li>Django</li>
-                    </ul>
+                </ul>
                 <h7><em>Advanced</em></h7>
                 <div class="bar advanced"></div>
             </div>
@@ -326,23 +332,23 @@
                 <h7><em>Intermediate</em></h7>
                 <div class="bar intermediate"></div>
             </div>
-    </section>
-
-    <section class="work">
-        <h1>Work Experience</h1>
-
-        <div class="card-container">
-            <div class="card">
-                <h3><a target="_blank" href="https://bendingspoons.com">Bending Spoons</a></h3>
-                <h5>iOS Developer</h5>
-                <h7><em>July 2019 - September 2019</em></h7>
-                <ul>
-                    <li>Swift</li>
-                    <li>SwiftUI</li>
-                    <li>UIKit</li>
-                    <li>Sketch</li>
-                </ul>
-                <p>
+        </section>
+        
+        <section class="work">
+            <h1>Work Experience</h1>
+            
+            <div class="card-container">
+                <div class="card">
+                    <h3><a target="_blank" href="https://bendingspoons.com">Bending Spoons</a></h3>
+                    <h5>iOS Developer</h5>
+                    <h7><em>July 2019 - September 2019</em></h7>
+                    <ul>
+                        <li>Swift</li>
+                        <li>SwiftUI</li>
+                        <li>UIKit</li>
+                        <li>Sketch</li>
+                    </ul>
+                    <p>
                     Full-time, free-of-charge, 5-week program on iOS programming
                     at one of the major companies on the European scene in this field,
                     with +300 million downloads on the App Store (300k per day).
@@ -350,48 +356,48 @@
                     the most promising young developers in Italy and nurture their talent.
                     Once-in-a-lifetime opportunity to learn the secrets of iOS development
                     directly from world-class senior engineers. More on: https://b.camp
-                </p>
-            </div>
-            <div class="card">
-                <h3>daBoss</h3>
-                <h5>Web Developer, iOS Developer, Social Manager, Staff Member</h5>
-                <h7><em>July 2018 - Current</em></h7>
-                <ul>
-                    <li>HTML</li>
-                    <li>CSS</li>
-                    <li>Swift</li>
-                    <li>SwiftUI</li>
-                    <li>UIKit</li>
-                    <li>Photoshop</li>
-                    <li>Illustrator</li>
-                    <li>Sketch</li>
-                </ul>
-                <p>
+                    </p>
+                </div>
+                <div class="card">
+                    <h3>daBoss</h3>
+                    <h5>Web Developer, iOS Developer, Social Manager, Staff Member</h5>
+                    <h7><em>July 2018 - Current</em></h7>
+                    <ul>
+                        <li>HTML</li>
+                        <li>CSS</li>
+                        <li>Swift</li>
+                        <li>SwiftUI</li>
+                        <li>UIKit</li>
+                        <li>Photoshop</li>
+                        <li>Illustrator</li>
+                        <li>Sketch</li>
+                    </ul>
+                    <p>
                     DaBoss is a 3vs3 streetball tournament.
                     It’s played on the waterfront in Locri (Calabria).
                     Here I draw up game schedule and design gadgets.
                     I take care of our webpage (www.dabosstournament.com) and social pages (Facebook and Instagram).
                     Furthermore I deal to publicize the event trough targeted ads online and in real world.
-                </p>
-            </div>
-            <div class="card">
-                <h3>ioniCup</h3>
-                <h5>Web Developer, iOS Developer, Staff Member</h5>
-                <h7><em>June 2012 - Current</em></h7>
-                <ul>
-                    <li>HTML</li>
-                    <li>CSS</li>
-                    <li>Javascript</li>
-                    <li>Python</li>
-                    <li>Django</li>
-                    <li>Swift</li>
-                    <li>SwiftUI</li>
-                    <li>UIKit</li>
-                    <li>Photoshop</li>
-                    <li>Illustrator</li>
-                    <li>Sketch</li>
-                </ul>
-                <p>
+                    </p>
+                </div>
+                <div class="card">
+                    <h3>ioniCup</h3>
+                    <h5>Web Developer, iOS Developer, Staff Member</h5>
+                    <h7><em>June 2012 - Current</em></h7>
+                    <ul>
+                        <li>HTML</li>
+                        <li>CSS</li>
+                        <li>Javascript</li>
+                        <li>Python</li>
+                        <li>Django</li>
+                        <li>Swift</li>
+                        <li>SwiftUI</li>
+                        <li>UIKit</li>
+                        <li>Photoshop</li>
+                        <li>Illustrator</li>
+                        <li>Sketch</li>
+                    </ul>
+                    <p>
                     IoniCup is a basketball tournament for young kids placed in Locri (Calabria).
                     Year after year this tournament is getting bigger.
                     Now we host teams from all Italy (like Olimpia Milano), and Europe.
@@ -402,149 +408,159 @@
                     and create game report pdf.
                     Audience are able to connect to the site to watch real time results and time.
                     I'm currently developing the iOS app.
-                </p>
+                    </p>
+                </div>
+                <div class="card">
+                    <h3>Etnye</h3>
+                    <h5>IT Consultant</h5>
+                    <h7><em>February 2019 - Current</em></h7>
+                </div>
+            </div>
+        </section>
+        
+        
+        <section class="education">
+            <h1>Education</h1>
+            
+            <div class="card">
+                <h3>Politecnico di Milano</h3>
+                <h5>Bachelor Degree ~ Electronic Engineer</h5>
+                <h7><em>2017 - Current</em></h7>
+                <ul>
+                    <li>Geometry and linear algebra</li>
+                    <li>Foundations of Informatics</li>
+                    <li>Mathematical analysis 1</li>
+                    <li>Physics</li>
+                    <li>Economics and business organization</li>
+                    <li>Principles of computer architecture</li>
+                    <li>Mathematical analysis 2</li>
+                    <li>Electrotechnics</li>
+                    <li>Fundamentals of automatic</li>
+                    <li>Electromagnetism and optics</li>
+                    <li>Analog electronics</li>
+                    <li>Digital electronic systems</li>
+                    <li>Fundamentals of signals and transmission</li>
+                    <li>Fundamentals of chemistry for electronics</li>
+                    <li>Electronic devices</li>
+                    <li>Fundamentals of electronics</li>
+                    <li>Microcontrollers</li>
+                    <li>Fundamentals of numerical calculation</li>
+                    <li>Solid state electronics</li>
+                    <li>Electromagnetic fields</li>
+                </ul>
             </div>
             <div class="card">
-                <h3>Etnye</h3>
-                <h5>IT Consultant</h5>
-                <h7><em>February 2019 - Current</em></h7>
+                <h3>Liceo Classico</h3>
+                <h5>Diploma ~ Grammar School</h5>
+                <h7><em>2012 - 2017</em></h7>
+                <ul>
+                    <li>Italian</li>
+                    <li>Latin</li>
+                    <li>Greek</li>
+                    <li>Math</li>
+                    <li>Physics</li>
+                    <li>English</li>
+                    <li>History</li>
+                    <li>Geography</li>
+                    <li>Science</li>
+                    <li>Physical education</li>
+                    <li>Religion</li>
+                    <li>Art history</li>
+                    <li>Civic Education</li>
+                    <li>Philosophy</li>
+                </ul>
+                <p>Grade: 100/100</p>
             </div>
-        </div>
-    </section>
+        </section>
+        
+        <section class="awards">
+            <h1>Awards</h1>
+            
+            <div class="card">
+                <h3>Olimpiadi della Matematica</h3>
+                <h5>Honorable Mention</h5>
+                <h7><em>2016</em></h7>
+                <p>National finals of the Italian Olympics of Mathematics.</p>
+            </div>
+        </section>
+        
+        <section class="languages">
+            <h1>Languages</h1>
+            <div class="card">
+                <h3>Italian</h3>
+                <h7><em>Native Speaker</em></h7>
+                <div class="bar master"></div>
+            </div>
+            <div class="card">
+                <h3>English</h3>
+                <h7><em>Fluent</em></h7>
+                <div class="bar advanced"></div>
+            </div>
+            <div class="card">
+                <h3>French</h3>
+                <h7><em>Beginner</em></h7>
+                <div class="bar beginner"></div>
+            </div>
+        </section>
+        
+        
+        <section class="interests">
+            <h1>Interests</h1>
+            <div class="card">
+                <h3>Basketball</h3>
+                <ul>
+                    <li>Olimpia Milano</li>
+                    <li>New York Knicks</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>Snowboarding</h3>
+                <ul>
+                    <li>Shaun White</li>
+                    <li>Emil Zulian</li>
+                    <li>Alberto Maffei</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>Football</h3>
+                <ul>
+                    <li>Juventus</li>
+                </ul>
+            </div>
+        </section>
 
-
-    <section class="education">
-        <h1>Education</h1>
-
-        <div class="card">
-            <h3>Politecnico di Milano</h3>
-            <h5>Bachelor Degree ~ Electronic Engineer</h5>
-            <h7><em>2017 - Current</em></h7>
-            <ul>
-                <li>Geometry and linear algebra</li>
-                <li>Foundations of Informatics</li>
-                <li>Mathematical analysis 1</li>
-                <li>Physics</li>
-                <li>Economics and business organization</li>
-                <li>Principles of computer architecture</li>
-                <li>Mathematical analysis 2</li>
-                <li>Electrotechnics</li>
-                <li>Fundamentals of automatic</li>
-                <li>Electromagnetism and optics</li>
-                <li>Analog electronics</li>
-                <li>Digital electronic systems</li>
-                <li>Fundamentals of signals and transmission</li>
-                <li>Fundamentals of chemistry for electronics</li>
-                <li>Electronic devices</li>
-                <li>Fundamentals of electronics</li>
-                <li>Microcontrollers</li>
-                <li>Fundamentals of numerical calculation</li>
-                <li>Solid state electronics</li>
-                <li>Electromagnetic fields</li>
-            </ul>
-        </div>
-        <div class="card">
-            <h3>Liceo Classico</h3>
-            <h5>Diploma ~ Grammar School</h5>
-            <h7><em>2012 - 2017</em></h7>
-            <ul>
-                <li>Italian</li>
-                <li>Latin</li>
-                <li>Greek</li>
-                <li>Math</li>
-                <li>Physics</li>
-                <li>English</li>
-                <li>History</li>
-                <li>Geography</li>
-                <li>Science</li>
-                <li>Physical education</li>
-                <li>Religion</li>
-                <li>Art history</li>
-                <li>Civic Education</li>
-                <li>Philosophy</li>
-            </ul>
-            <p>Grade: 100/100</p>
-        </div>
-    </section>
-
-    <section class="awards">
-        <h1>Awards</h1>
-
-        <div class="card">
-            <h3>Olimpiadi della Matematica</h3>
-            <h5>Honorable Mention</h5>
-            <h7><em>2016</em></h7>
-            <p>National finals of the Italian Olympics of Mathematics.</p>
-        </div>
-    </section>
-
-    <section class="languages">
-        <h1>Languages</h1>
-        <div class="card">
-            <h3>Italian</h3>
-            <h7><em>Native Speaker</em></h7>
-            <div class="bar master"></div>
-        </div>
-        <div class="card">
-            <h3>English</h3>
-            <h7><em>Fluent</em></h7>
-            <div class="bar advanced"></div>
-        </div>
-        <div class="card">
-            <h3>French</h3>
-            <h7><em>Beginner</em></h7>
-            <div class="bar beginner"></div>
-        </div>
-    </section>
-
-
-    <section class="interests">
-        <h1>Interests</h1>
-        <div class="card">
-            <h3>Basketball</h3>
-            <ul>
-                <li>Olimpia Milano</li>
-                <li>New York Knicks</li>
-            </ul>
-        </div>
-        <div class="card">
-            <h3>Snowboarding</h3>
-            <ul>
-                <li>Shaun White</li>
-                <li>Emil Zulian</li>
-                <li>Alberto Maffei</li>
-            </ul>
-        </div>
-        <div class="card">
-            <h3>Football</h3>
-            <ul>
-                <li>Juventus</li>
-            </ul>
-        </div>
-    </section>
-
-    <div class="shape circle-1"></div>
-    <div class="shape circle-2"></div>
-    <div class="shape circle-3"></div>
-    <div class="shape circle-4"></div>
-    <div class="shape square-1"></div>
-    <div class="shape square-2"></div>
-    <div class="shape square-3"></div>
-    <div class="shape triangle-1"></div>
-    <div class="shape triangle-2"></div>
-    <div class="shape triangle-3"></div>
-    <i class="fab fa-html5 shape icon icon-1"></i>
-    <i class="fab fa-css3-alt shape icon icon-2"></i>
-    <i class="fab fa-css3 shape icon icon-3"></i>
-    <i class="fab fa-sass shape icon icon-4"></i>
-    <i class="fab fa-js-square shape icon icon-5"></i>
-    <i class="fab fa-python shape icon icon-6"></i>
-    <i class="fab fa-swift shape icon icon-7"></i>
-    <i class="fab fa-github-square shape icon icon-8"></i>
-    <i class="fab fa-adobe shape icon icon-9"></i>
-    <i class="fab fa-sketch shape icon icon-10"></i>
-    <i class="fab fa-google shape icon icon-11"></i>
-    <i class="fab fa-apple shape icon icon-12"></i>
-
-</body>
+        <section id="print-resume">
+            <div class="card">
+                <h3>You can print my resume from here:</h3>
+                <h4 class="jsonresume">
+                    <i class="fab fa-js-square social"></i>
+                    <a target="_blank" href="https://registry.jsonresume.org/lorenzofiamingo">JSONResume</a>
+                </h4>
+            </div>
+        </section>
+        
+        <div class="shape circle-1"></div>
+        <div class="shape circle-2"></div>
+        <div class="shape circle-3"></div>
+        <div class="shape circle-4"></div>
+        <div class="shape square-1"></div>
+        <div class="shape square-2"></div>
+        <div class="shape square-3"></div>
+        <div class="shape triangle-1"></div>
+        <div class="shape triangle-2"></div>
+        <div class="shape triangle-3"></div>
+        <i class="fab fa-html5 shape icon icon-1"></i>
+        <i class="fab fa-css3-alt shape icon icon-2"></i>
+        <i class="fab fa-css3 shape icon icon-3"></i>
+        <i class="fab fa-sass shape icon icon-4"></i>
+        <i class="fab fa-js-square shape icon icon-5"></i>
+        <i class="fab fa-python shape icon icon-6"></i>
+        <i class="fab fa-swift shape icon icon-7"></i>
+        <i class="fab fa-github-square shape icon icon-8"></i>
+        <i class="fab fa-adobe shape icon icon-9"></i>
+        <i class="fab fa-sketch shape icon icon-10"></i>
+        <i class="fab fa-google shape icon icon-11"></i>
+        <i class="fab fa-apple shape icon icon-12"></i>
+        
+    </body>
 </html>

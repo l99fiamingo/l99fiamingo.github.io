@@ -101,6 +101,10 @@ i {
     color: #fd1d1d;
 }
 
+.jsonresume {
+    color: #ffd632;
+}
+
 .mail {
     color: deepskyblue;
 }
@@ -240,54 +244,62 @@ section>h1 {
     top: 100px;
 }
 
+#print-resume {
+    margin-top: 10rem;
+}
+
+#print-resume > .card {
+    margin: auto;
+    text-align: center;
+}
 
 /****************
-*		TABLET
-****************/
+ *		TABLET
+ ****************/
 
 @media screen and (min-width: 602px) {
     section {
         padding-left: 3rem;
         padding-right: 3rem;
     }
-
+    
     h1 {
         font-size: 4rem;
     }
-
+    
     h2 {
         font-size: 2rem;
     }
-
+    
     h3 {
         font-size: 1.8rem;
     }
-
+    
     h4 {
         font-size: 1.5rem;
         font-weight: lighter;
     }
-
+    
     h5 {
         font-size: 1.3rem;
         font-weight: lightest;
     }
-
+    
     h6 {
         font-size: 1rem;
         font-weight: 200;
     }
-
+    
     h7 {
         font-size: 0.8rem;
         font-weight: 100;
     }
-
+    
     h8 {
         font-size: 0.5rem;
         font-weight: lightest;
     }
-
+    
     p {
         display: block;
         font-size: 1rem;
@@ -296,15 +308,15 @@ section>h1 {
 
 
 /****************
-*		LAPTOP
-****************/
+ *		LAPTOP
+ ****************/
 
 @media screen and (min-width: 1025px) {
     section {
         padding-left: 12rem;
         padding-right: 12rem;
     }
-
+    
     section:first-child {
         padding-left: 6rem;
         padding-right: 6rem;

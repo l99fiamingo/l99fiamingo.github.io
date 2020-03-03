@@ -12,17 +12,13 @@ body {
     padding: 1rem;
 }
 
-p {
-    display: block;
-    font-size: 1.5rem;
-}
-
 a {
-    color: black;
-    text-decoration: none;
+    color: inherit;
+    text-decoration: underline;
 }
 
 a:hover {
+    color: black;
     text-decoration: underline;
 }
 
@@ -63,6 +59,11 @@ h8 {
     font-weight: lightest;
 }
 
+p {
+    display: block;
+    font-size: 1.5rem;
+}
+
 section {
     margin-top: 2rem;
 }
@@ -72,28 +73,36 @@ section {
     text-align: center;
 }
 
-.fa-whatsapp {
+i {
+    vertical-align: middle;
+}
+
+.whatsapp {
     color: #25d366;
 }
 
-.fa-github {
+.github {
     color: #333;
 }
 
-.fa-stack-overflow {
+.stack-overflow {
     color: #f48024;
 }
 
-.fa-linkedin-in {
+.linkedin {
     color: #0077b5;
 }
 
-.fa-facebook-f {
+.facebook {
     color: #3b5998;
 }
 
-.fa-instagram {
+.instagram {
     color: #fd1d1d;
+}
+
+.mail {
+    color: deepskyblue;
 }
 
 section>h1 {
@@ -112,6 +121,11 @@ section>h1 {
     margin-bottom: 1em;
     border-radius: 0.5em;
     overflow: hidden;
+}
+
+.card > ul {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
 }
 
 .bar {
@@ -141,7 +155,6 @@ section>h1 {
     width: 30%;
 }
 
-
 .card > ul > li {
     display: inline-block;
     margin: 4px 0 2px 0;
@@ -150,11 +163,14 @@ section>h1 {
     font-size: 1.2rem;
     line-height: 1;
     text-transform: lowercase;
-    color: white;
-    background-color: black;
+    border: 2px solid black;
     white-space: nowrap;
 }
 
+#contact {
+    display: flex;
+    flex-flow: wrap;
+}
 
 .shape {
     position: fixed;
@@ -224,6 +240,7 @@ section>h1 {
     top: 100px;
 }
 
+
 /****************
 *		TABLET
 ****************/
@@ -232,6 +249,48 @@ section>h1 {
     section {
         padding-left: 3rem;
         padding-right: 3rem;
+    }
+
+    h1 {
+        font-size: 4rem;
+    }
+
+    h2 {
+        font-size: 2rem;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.5rem;
+        font-weight: lighter;
+    }
+
+    h5 {
+        font-size: 1.3rem;
+        font-weight: lightest;
+    }
+
+    h6 {
+        font-size: 1rem;
+        font-weight: 200;
+    }
+
+    h7 {
+        font-size: 0.8rem;
+        font-weight: 100;
+    }
+
+    h8 {
+        font-size: 0.5rem;
+        font-weight: lightest;
+    }
+
+    p {
+        display: block;
+        font-size: 1rem;
     }
 }
 
@@ -242,6 +301,11 @@ section>h1 {
 
 @media screen and (min-width: 1025px) {
     section {
+        padding-left: 12rem;
+        padding-right: 12rem;
+    }
+
+    section:first-child {
         padding-left: 6rem;
         padding-right: 6rem;
     }

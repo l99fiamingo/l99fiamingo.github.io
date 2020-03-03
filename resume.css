@@ -75,6 +75,8 @@ section {
 
 i {
     vertical-align: middle;
+    margin: auto;
+    margin-right: 1rem;
 }
 
 .whatsapp {

@@ -23,45 +23,45 @@ a:hover {
 }
 
 h1 {
-    font-size: 4rem;
+    font-size: 8rem;
 }
 
 h2 {
-    font-size: 3rem;
+    font-size: 6rem;
 }
 
 h3 {
-    font-size: 2.5rem;
+    font-size: 5rem;
 }
 
 h4 {
-    font-size: 2rem;
+    font-size: 4rem;
     font-weight: lighter;
 }
 
 h5 {
-    font-size: 1.8rem;
+    font-size: 3.5rem;
     font-weight: lightest;
 }
 
 h6 {
-    font-size: 1.5rem;
+    font-size: 3rem;
     font-weight: 200;
 }
 
 h7 {
-    font-size: 1.3rem;
+    font-size: 2.5rem;
     font-weight: 100;
 }
 
 h8 {
-    font-size: 1rem;
+    font-size: 2rem;
     font-weight: lightest;
 }
 
 p {
     display: block;
-    font-size: 1.5rem;
+    font-size: 3rem;
 }
 
 section {

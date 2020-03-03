@@ -41,7 +41,7 @@ h4 {
 
 h5 {
     font-size: 3.5rem;
-    font-weight: lightest;
+    font-weight: lighter;
 }
 
 h6 {
@@ -56,7 +56,7 @@ h7 {
 
 h8 {
     font-size: 2rem;
-    font-weight: lightest;
+    font-weight: lighter;
 }
 
 p {
@@ -254,13 +254,18 @@ section>h1 {
 }
 
 /****************
- *		TABLET
+ *		DESKTOP
  ****************/
 
-@media screen and (min-width: 602px) {
+@media only screen and (min-width: 768px) {
     section {
-        padding-left: 3rem;
-        padding-right: 3rem;
+        padding-left: 12rem;
+        padding-right: 12rem;
+    }
+
+    section:first-child {
+        padding-left: 6rem;
+        padding-right: 6rem;
     }
     
     h1 {
@@ -282,7 +287,7 @@ section>h1 {
     
     h5 {
         font-size: 1.3rem;
-        font-weight: lightest;
+        font-weight: lighter;
     }
     
     h6 {
@@ -297,28 +302,11 @@ section>h1 {
     
     h8 {
         font-size: 0.5rem;
-        font-weight: lightest;
+        font-weight: lighter;
     }
     
     p {
         display: block;
         font-size: 1rem;
-    }
-}
-
-
-/****************
- *		LAPTOP
- ****************/
-
-@media screen and (min-width: 1025px) {
-    section {
-        padding-left: 12rem;
-        padding-right: 12rem;
-    }
-    
-    section:first-child {
-        padding-left: 6rem;
-        padding-right: 6rem;
     }
 }

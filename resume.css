@@ -23,7 +23,7 @@ a:hover {
 }
 
 h1 {
-    font-size: 8rem;
+    font-size: 7rem;
 }
 
 h2 {
@@ -170,7 +170,6 @@ section>h1 {
     line-height: 1;
     text-transform: lowercase;
     border: 2px solid black;
-    white-space: nowrap;
 }
 
 #contact {
